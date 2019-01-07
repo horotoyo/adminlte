@@ -1,8 +1,7 @@
 <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              
               <img src="<?php echo $_SESSION['photo']?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?= $_SESSION['name'] ?></span>
+              <span class="hidden-xs"><?php echo $_SESSION['name']?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -10,7 +9,7 @@
                 <img src="<?php echo $_SESSION['photo']?>" class="img-circle" alt="User Image">
 
                 <p>
-                  <?= $_SESSION['name'] ?>
+                  <?php echo $_SESSION['name']?>
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -32,7 +31,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="logout.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>

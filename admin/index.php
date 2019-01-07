@@ -50,7 +50,7 @@ if (isset($_SESSION['email'])) {
          ?>
           <!-- User Account: style can be found in dropdown.less -->
           <?php
-          include 'layout/user_account.php';
+          include 'layout/user.php';
           ?>
           <!-- Control Sidebar Toggle Button -->
           <li>
@@ -70,7 +70,7 @@ if (isset($_SESSION['email'])) {
           <img src="<?php echo $_SESSION['photo']?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p><?php echo $_SESSION['name']?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
