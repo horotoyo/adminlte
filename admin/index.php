@@ -39,17 +39,8 @@ if (isset($_SESSION['email'])) {
           <!-- Messages: style can be found in dropdown.less-->
           <?php
           include 'layout/massage.php';
-          ?>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <?php 
           include 'layout/notification.php';
-          ?>
-          <!-- Tasks: style can be found in dropdown.less -->
-         <?php
-         include 'layout/tasks.php'
-         ?>
-          <!-- User Account: style can be found in dropdown.less -->
-          <?php
+          include 'layout/tasks.php';
           include 'layout/user.php';
           ?>
           <!-- Control Sidebar Toggle Button -->
