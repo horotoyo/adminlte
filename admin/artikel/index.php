@@ -8,7 +8,7 @@ if (isset($_SESSION['email'])) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Kategori</title>
+  <title>AdminLTE 2 | Artikel</title>
  <?php
  include '../layout/header.php';
  ?>
@@ -87,12 +87,12 @@ if (isset($_SESSION['email'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Kategori
+        Artikel
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Kategori</li>
+        <li class="active">Artikel</li>
       </ol>
     </section>
 
@@ -100,8 +100,8 @@ if (isset($_SESSION['email'])) {
     <section class="content">
       <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Kategori</h3>
-              <a href="http://localhost/adminlte/admin/kategori/create.php" class="btn btn-primary pull-right">Create</a>
+              <h3 class="box-title">Artikel</h3>
+              <a href="http://localhost/adminlte/admin/artikel/create.php" class="btn btn-primary pull-right">Create</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -111,25 +111,51 @@ if (isset($_SESSION['email'])) {
                 <tr>
                   <tr>
                     <th style="width: 10px">No</th>
-                    <th>Nama</th>
+                    <th>Judul</th>
+                    <th>Pembuat</th>
+                    <th>Kategori</th>
+                    <th>Status</th>
+                    <th>Jam</th>
+                    <th>Tanggal</th>
                     <th>Action</th>
                   </tr>
               </thead>
                 <?php
                   include '../../config/koneksi.php';
                   $nomor  = 1;
-                  $sql    = "SELECT * FROM kategori ORDER BY nama ASC";
+                  $sql    = "SELECT kategori.id, kategori.nama as jenis, artikel.id, artikel.judul, artikel.isi, artikel.user_id, artikel.status,artikel.jam, artikel.rilis FROM artikel INNER JOIN kategori ON kategori.id = artikel.kategori_id";
                   $result = mysqli_query($konek, $sql);
-                  
+
+
+                  function namaUser($id, $konek) {
+                    $name    = "SELECT name FROM user WHERE id=".$id;
+                    $hasil = mysqli_query($konek, $name);
+                    $kolom = mysqli_fetch_row($hasil);
+
+                    return $kolom[0];
+                  }
+
+                  function jika($status) {
+                    if ($status==1) {
+                      return "<em style='color:#008bd1'>Active</em>";
+                    } else {
+                      return "<em style='color:#ff0000'>Non-Active</em>";}
+                    }
+
                   if (mysqli_num_rows($result)>0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                       echo "
                         <tr>
                           <td>".$nomor++."</td>
-                          <td>".$row['nama']."</td>
+                          <td>".$row['judul']."</td>
+                          <td>".namaUser($row['user_id'], $konek)."</td>
+                          <td>".$row['jenis']."</td>
+                          <td>".jika($row['status'])."</td>
+                          <td>".$row['jam']."</td>
+                          <td>".$row['rilis']."</td>
                           <td>
-                            <a href='edit_kategori.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                            <a href='delete_kategori.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                            <a href='edit_artikel.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                            <a href='delete_artikel.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
                           </td>
                         </tr>
                       ";
@@ -137,7 +163,7 @@ if (isset($_SESSION['email'])) {
                   } else {
                     echo "
                       <tr>
-                        <td colspan='3' align='center'>Tidak ada data yang ditemukan.</td>
+                        <td colspan='8' align='center'>Tidak ada data yang ditemukan.</td>
                       </tr>
                     ";
                   }

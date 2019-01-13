@@ -8,10 +8,12 @@ if (isset($_SESSION['email'])) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Kategori</title>
+  <title>AdminLTE 2 | Dashboard</title>
  <?php
  include '../layout/header.php';
  ?>
+   <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/all.css">
   <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -87,72 +89,111 @@ if (isset($_SESSION['email'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Kategori
+        Artikel
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Kategori</li>
+        <li class="active">Artikel</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
+
             <div class="box-header with-border">
-              <h3 class="box-title">Kategori</h3>
-              <a href="http://localhost/adminlte/admin/kategori/create.php" class="btn btn-primary pull-right">Create</a>
+              <h3 class="box-title">Edit Artikel</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <!-- form start -->
+            <?php
+            include '../../config/koneksi.php';
 
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <tr>
-                    <th style="width: 10px">No</th>
-                    <th>Nama</th>
-                    <th>Action</th>
-                  </tr>
-              </thead>
-                <?php
-                  include '../../config/koneksi.php';
-                  $nomor  = 1;
-                  $sql    = "SELECT * FROM kategori ORDER BY nama ASC";
-                  $result = mysqli_query($konek, $sql);
-                  
-                  if (mysqli_num_rows($result)>0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+            $ID       = $_GET['id'];
+            $sql      = "SELECT * FROM artikel WHERE id=$ID";
+            $result   = mysqli_query($konek, $sql);
+            $row      = mysqli_fetch_assoc($result);
+            $tampil   = $row['kategori_id'];
+            $cek      = $row['status'];
+
+            $sql2   = "SELECT * FROM kategori WHERE id=$tampil";
+            $result2  = mysqli_query($konek, $sql2);
+            $row2     = mysqli_fetch_assoc($result2);
+
+            ?>
+            <form role="form" action="proses_edit.php" method="POST">
+              <div class="box-body">
+                 <input type="hidden" name="id" value="<?php echo $ID; ?>">
+
+                <div class="form-group">
+                  <label for="judul">Judul</label>
+                  <input type="text" class="form-control" id="judul" value="<?php echo $row['judul']; ?>" name="judul">
+                </div>
+
+                <div class="form-group">
+                  <label>Kategori</label>
+                  <select name="kategori" id="category" class="form-control" required="">
+          					<option value="<?php echo $row2['id']; ?>"><?php echo $row2['nama']; ?></option>
+          					<?php
+          						include '../../config/koneksi.php';
+          						$sql3 	= "SELECT * FROM kategori";
+          						$result3 = mysqli_query($konek, $sql3);
+          						if (mysqli_num_rows($result3) > 0) {
+          							while ($row3 = mysqli_fetch_assoc($result3)) {
+          								echo "<option value=".$row3['id'].">".$row3['nama']."</option>";
+          							}
+          						}
+          					?>
+          				</select>
+              	</div>
+
+              	<div class="form-group">
+                  <label for="isi">Isi Artikel</label>
+                 <div>
+    		            <textarea class="box-body pad" id="editor1" name="isi" rows="10" cols="80"><?php echo $row['isi']; ?></textarea>
+    		         </div>
+                </div>
+
+                <div>
+                	<label for="status">Status</label>
+                	<div class="form-group">
+                    <?php
+                    include '../../config/koneksi.php';
+
+                    if ($cek == 1) {
                       echo "
-                        <tr>
-                          <td>".$nomor++."</td>
-                          <td>".$row['nama']."</td>
-                          <td>
-                            <a href='edit_kategori.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                            <a href='delete_kategori.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
-                          </td>
-                        </tr>
+                      <label for='active'>
+                      <input type='radio' name='status' value='1' id='active' class='minimal-red' required checked>
+                      Active</label>
+                      <label for='non-active'>
+                      <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required>
+                      Non-Active</label>
+                      ";
+                    } else {
+                      echo "
+                      <label for='active'>
+                      <input type='radio' name='status' value='1' id='active' class='minimal-red' required>
+                      Active</label>
+                      <label for='non-active'>
+                      <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required checked>
+                      Non-Active</label>
                       ";
                     }
-                  } else {
-                    echo "
-                      <tr>
-                        <td colspan='3' align='center'>Tidak ada data yang ditemukan.</td>
-                      </tr>
-                    ";
-                  }
-                  ?>
-              </table>
 
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-              </ul>
-            </div>
+                    ?>
+      					</div>
+                </div>
+              </div>
+
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a type="reset" class="btn btn-default" href="http://localhost/adminlte/admin/artikel">Cancel</a>
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+              </div>
+            </form>
           </div>
+
     </section>
     <!-- /.content -->
   </div>
@@ -358,6 +399,34 @@ if (isset($_SESSION['email'])) {
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
+
+<!-- jQuery 3 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/demo.js"></script>
+<!-- CK Editor -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+  })
+</script>
+
+
 </div>
 <!-- ./wrapper -->
 

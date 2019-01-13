@@ -12,6 +12,7 @@ if(!empty($email) && !empty($pass)) {
 		$_SESSION['email']	= $email;
 		$_SESSION['name']	= $row['name'];
 		$_SESSION['photo']	= $row['photo'];
+		$_SESSION['id']		= $row['id'];
 		header('location: ../admin/index.php');
 	} else {
 		echo "Email anda salah";

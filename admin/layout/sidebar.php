@@ -1,6 +1,6 @@
  <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
+        <li class="">
           <a href="http://localhost/adminlte/admin">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
@@ -12,7 +12,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="http://localhost/adminlte/admin/artikel">
             <i class="fa fa-book"></i>
             <span>Artikel</span>
           </a>
