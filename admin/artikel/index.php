@@ -128,12 +128,13 @@ if (isset($_SESSION['email'])) {
                   $result = mysqli_query($konek, $sql);
 
 
-                  function namaUser($id, $konek) {
+                  function namaUser($id) {
+                    global $konek;
                     $name    = "SELECT name FROM user WHERE id=".$id;
-                    $hasil = mysqli_query($konek, $name);
-                    $kolom = mysqli_fetch_row($hasil);
+                    $hasil   = mysqli_query($konek, $name);
+                    $kolom   = mysqli_fetch_assoc($hasil);
 
-                    return $kolom[0];
+                    return $kolom['name'];
                   }
 
                   function jika($status) {
@@ -144,16 +145,16 @@ if (isset($_SESSION['email'])) {
                     }
 
                   if (mysqli_num_rows($result)>0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    while ($row = mysqli_fetch_assoc($result)){
                       echo "
                         <tr>
                           <td>".$nomor++."</td>
                           <td>".$row['judul']."</td>
-                          <td>".namaUser($row['user_id'], $konek)."</td>
+                          <td>".namaUser($row['user_id'])."</td>
                           <td>".$row['jenis']."</td>
                           <td>".jika($row['status'])."</td>
                           <td>".$row['jam']."</td>
-                          <td>".$row['rilis']."</td>
+                          <td>".date('d F Y', strtotime($row['rilis']))."</td>
                           <td>
                             <a href='edit_artikel.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
                             <a href='delete_artikel.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>

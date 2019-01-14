@@ -3,12 +3,13 @@ session_start();
 if (isset($_SESSION['email'])) {
   
 ?>
+<?php $thisPage = "Artikel"; ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title><?php echo $thisPage; ?></title>
  <?php
  include '../layout/header.php';
  ?>
@@ -107,7 +108,7 @@ if (isset($_SESSION['email'])) {
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="proses_tambah.php" method="POST">
+            <form role="form" action="proses_tambah.php" method="POST" enctype="multipart/form-data">
               <div class="box-body">
 
                 <div class="form-group">
@@ -118,39 +119,49 @@ if (isset($_SESSION['email'])) {
                 <div class="form-group">
                   <label>Kategori</label>
                   <select name="kategori" id="category" class="form-control" required="">
-					<option value="">-- Pilih Kategori --</option>
-					<?php
-						include '../../config/koneksi.php';
-						$sql 	= "SELECT * FROM kategori";
-						$result = mysqli_query($konek, $sql);
-						if (mysqli_num_rows($result) > 0) {
-							while ($row = mysqli_fetch_assoc($result)) {
-								echo "<option value=".$row['id'].">".$row['nama']."</option>";
-							}
-						}
-					?>
-				</select>
+        					<option value="">-- Pilih Kategori --</option>
+        					<?php
+        						include '../../config/koneksi.php';
+        						$sql 	= "SELECT * FROM kategori";
+        						$result = mysqli_query($konek, $sql);
+        						if (mysqli_num_rows($result) > 0) {
+        							while ($row = mysqli_fetch_assoc($result)) {
+        								echo "<option value=".$row['id'].">".$row['nama']."</option>";
+        							}
+        						}
+        					?>
+        				</select>
               	</div>
 
               	<div class="form-group">
-                  <label for="isi">Isi Artikel</label>
-                 <div>
-		         	<textarea class="box-body pad" id="editor1" name="isi" rows="10" cols="80"></textarea>
-		         </div>
+                <label for="isi">Isi Artikel</label>
+                <div>
+		            <textarea class="box-body pad" id="editor1" name="isi" rows="10" cols="80"></textarea>
+		            </div>
                 </div>
 
                 <div>
-                	<label for="status">Status</label>
-                	<div class="form-group">
-						<label for="active">
-						<input type="radio" name="status" value="1" id="active" class="minimal-red" required="">
-						Active</label>
-						<label for="non-active">
-	                	<input type="radio" name="status" value="0" id="non-active" class="minimal-red" required="">
-						Non-Active</label>
-					</div>
+                <label for="status">Status</label>
+                <div class="form-group">
+  						  <label for="active">
+  						  <input type="radio" name="status" value="1" id="active" class="minimal-red" required="">
+  						  Active</label>
+  						  <label for="non-active">
+  	            <input type="radio" name="status" value="0" id="non-active" class="minimal-red" required="">
+  						  Non-Active</label>
+  					    </div>
                 </div>
-              </div>
+                
+                <div>
+                <div class="form-group">
+                <label for="status">Gambar</label>
+                <input type="file" name="gambar"></input>
+                </div>
+                </div>
+
+                </div>
+
+
 
               <!-- /.box-body -->
               <div class="box-footer">
