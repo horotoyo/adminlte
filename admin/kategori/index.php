@@ -3,12 +3,13 @@ session_start();
 if (isset($_SESSION['email'])) {
   
 ?>
+<?php $thisPage = "Kategori"; ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Kategori</title>
+  <title><?php echo $thisPage; ?></title>
  <?php
  include '../layout/header.php';
  ?>
