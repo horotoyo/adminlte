@@ -17,4 +17,10 @@
             <span>Artikel</span>
           </a>
         </li>
+        <li <?php if($thisPage == "User") echo "class='active'"; ?>>
+          <a href="http://localhost/adminlte/admin/user">
+            <i class="fa fa-user"></i>
+            <span>User</span>
+          </a>
+        </li>
       </ul>
