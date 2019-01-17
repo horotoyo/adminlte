@@ -10,14 +10,15 @@ $date				= date('Y-m-d');
 $jam				= date('H:i')." WIB";
 $status				= $_POST['status'];
 
-//insert images
 $nama_gambar		= $_FILES['gambar']['name'];
 $tmp_name			= $_FILES['gambar']['tmp_name'];
 
-//moving file from temporer locatin to local server
-move_uploaded_file($tmp_name, "../../gambar/artikel-img/".$nama_gambar);
+$pindah				= substr($nama_gambar, -4);
+$acak				= rand(11111, 99999);
+$ubah				= str_replace($pindah, $acak.$pindah, $pindah);
+move_uploaded_file($tmp_name, "../../gambar/artikel-img/".$ubah);
+$addto				= "http://localhost/adminlte/gambar/artikel-img/".$ubah;
 
-$addto				= "http://localhost/adminlte/gambar/artikel-img/".$nama_gambar;
 
 $sql = "INSERT INTO artikel (judul, isi, user_id, gambar, status, kategori_id, jam, rilis)
 		VALUES ('$judul', '$isi', '$penulis', '$addto','$status','$kategori', '$jam', '$date')";

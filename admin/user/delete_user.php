@@ -7,7 +7,9 @@ $hasil   	= mysqli_query($konek, $ambil);
 $row	   	= mysqli_fetch_assoc($hasil);
 $hapus		= $row['photo'];
 
-$del 		= $hapus;
+$awal		= substr($hapus, 42);
+
+$del 		= "../../gambar/user-img/".$awal;
 
 if (unlink($del)) {
 	$sql = "DELETE FROM user WHERE id='$ID'";
@@ -16,16 +18,4 @@ if (unlink($del)) {
 } else {
 	echo "You have an error!";	
 }
-
-// $sql = "DELETE FROM user WHERE id='$ID'";
-// mysqli_query($konek,$sql);
-// header('location:index.php');	
-
-// if (!unlink($hapus)) {
-//  	echo "Error deleting";
-//  } else {
-//   	$sql = "DELETE FROM user WHERE id='$ID'";
-// 	mysqli_query($konek,$sql);
-// 	header('location:index.php');	
-//  }
 ?>

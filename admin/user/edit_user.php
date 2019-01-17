@@ -141,6 +141,17 @@ if (isset($_SESSION['email'])) {
                   </div>
                 </div>
               </div>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="gambar" class="col-sm-2 control-label">Photo Profile</label>
+                  <div class="col-sm-10">
+                  <img src="<?= $row['photo']?>" width="150px"><br><br>
+                  <input type="file" id="gambar" name="gambar"></input>
+                  <input type="hidden" name="regambar" value="<?= $row['photo'] ?>">
+                  JPG, JPEG, PNG format
+                  </div>
+                </div>
+              </div>
 
               <!-- /.box-body -->
               <div class="box-footer">

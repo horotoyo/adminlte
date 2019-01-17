@@ -5,8 +5,10 @@ $nama			= "ahiofh.jpg";
 $pindah			= substr($nama, -4);
 $acak			= rand(11111, 99999);
 $ubah			= str_replace($pindah, $acak.$pindah, $pindah);
+$lagi			= !isset($nama);
 
-echo $ubah;
+
+var_dump($lagi);
 
 
 // $ID    		= $_GET['id'];

@@ -136,6 +136,7 @@ if (isset($_SESSION['email'])) {
                   <label class="col-sm-2 control-label">Photo Profile</label>
                   <div class="col-sm-10">                  
                   <input type="file" name="gambar"></input>
+                  JPG, JPEG, and PNG
                   </div>
                 </div>
               </div>
