@@ -9,9 +9,10 @@ $password			= $_POST['password'];
 $nama_gambar		= $_FILES['gambar']['name'];
 $tmp_name			= $_FILES['gambar']['tmp_name'];
 
-$pindah				= substr($nama_gambar, -4);
-$acak				= rand(11111, 99999);
-$ubah				= str_replace($pindah, $acak.$pindah, $pindah);
+
+// $pindah				= substr($nama_gambar, -4);
+$acak				= rand(1111111, 9999999);
+$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
 
 // $acak				= rand(11111, 99999);
 // $ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);

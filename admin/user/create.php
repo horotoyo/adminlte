@@ -135,8 +135,8 @@ if (isset($_SESSION['email'])) {
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Photo Profile</label>
                   <div class="col-sm-10">                  
-                  <input type="file" name="gambar"></input>
-                  JPG, JPEG, and PNG
+                  <input type="file" name="gambar" accept=".png, .jpg, .jpeg"></input>
+                  JPG, JPEG, and PNG (Max. size 1 MB)
                   </div>
                 </div>
               </div>
