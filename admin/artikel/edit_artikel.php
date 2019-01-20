@@ -54,35 +54,9 @@ if (isset($_SESSION['email'])) {
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo $_SESSION['photo']?>" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p><?php echo $_SESSION['name']?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-     <?php
+      <?php
      include '../layout/sidebar.php';
      ?>
-    </section>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -122,8 +96,10 @@ if (isset($_SESSION['email'])) {
             $result2  = mysqli_query($konek, $sql2);
             $row2     = mysqli_fetch_assoc($result2);
 
+            $url      = "http://localhost/adminlte/gambar/artikel-img/";
+
             ?>
-            <form role="form" action="proses_edit.php" method="POST">
+            <form role="form" action="proses_edit.php" method="POST" enctype="multipart/form-data">
               <div class="box-body">
                  <input type="hidden" name="id" value="<?php echo $ID; ?>">
 
@@ -184,7 +160,16 @@ if (isset($_SESSION['email'])) {
 
                     ?>
       					</div>
+
+                <div class="form-group">
+                  <label for="gambar">Photo Profile</label>
+                  <div>
+                  <img src="<?= $url.$row['gambar']?>" width="150px"><br><br>
+                  <input type="file" id="gambar" name="gambar"></input>
+                  JPG, JPEG, PNG format
+                  </div>
                 </div>
+
               </div>
 
               <!-- /.box-body -->

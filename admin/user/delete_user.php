@@ -7,9 +7,7 @@ $hasil   	= mysqli_query($konek, $ambil);
 $row	   	= mysqli_fetch_assoc($hasil);
 $hapus		= $row['photo'];
 
-$awal		= substr($hapus, 42);
-
-$del 		= "../../gambar/user-img/".$awal;
+$del 		= "../../gambar/user-img/".$hapus;
 
 if (unlink($del)) {
 	$sql = "DELETE FROM user WHERE id='$ID'";

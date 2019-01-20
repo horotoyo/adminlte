@@ -54,35 +54,9 @@ if (isset($_SESSION['email'])) {
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="<?php echo $_SESSION['photo']?>" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p><?php echo $_SESSION['name']?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-     <?php
+      <?php
      include '../layout/sidebar.php';
      ?>
-    </section>
-    <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -114,6 +88,7 @@ if (isset($_SESSION['email'])) {
             $result   = mysqli_query($konek, $sql);
             $row      = mysqli_fetch_assoc($result);
 
+            $url      = "http://localhost/adminlte/gambar/user-img/";
             ?>
            <form class="form-horizontal" action="proses_edit.php" method="POST" enctype="multipart/form-data">
               <div class="box-body">
@@ -145,9 +120,8 @@ if (isset($_SESSION['email'])) {
                 <div class="form-group">
                   <label for="gambar" class="col-sm-2 control-label">Photo Profile</label>
                   <div class="col-sm-10">
-                  <img src="<?= $row['photo']?>" width="150px"><br><br>
+                  <img src="<?= 'http://localhost/adminlte/gambar/user-img/'.$row['photo']?>" width="150px"><br><br>
                   <input type="file" id="gambar" name="gambar"></input>
-                  <input type="hidden" name="regambar" value="<?= $row['photo'] ?>">
                   JPG, JPEG, PNG format
                   </div>
                 </div>
