@@ -184,6 +184,20 @@ if (isset($_SESSION['email'])) {
 
                     ?>
       					</div>
+
+                <div class="form-group">
+                  <div >
+                  <label for="gambar">Gambar Artikel</label>
+                  </div>
+                  <div>
+                  <img src="<?= $row['gambar']?>" width="150px"><br><br>
+                  <input type="file" id="gambar" name="gambar"></input>
+                  <input type="hidden" name="regambar" value="<?= $row['gambar'] ?>">
+                  JPG, JPEG, PNG format (maksimal ukuran gambar 1MB)
+                  </div>
+                </div>
+
+
                 </div>
               </div>
 

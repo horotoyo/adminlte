@@ -11,13 +11,26 @@ if (isset($_SESSION['email'])) {
 	$isi			= $_POST['isi'];
 	$status			= $_POST['status'];
 
-	
+	//insert gambar
+	$regambar			= $_POST['regambar'];
+	$nama_gambar		= $_FILES['gambar']['name'];
+	$tmp_name			= $_FILES['gambar']['tmp_name'];
+
+	//move and rename
+	$pindah				= substr($nama_gambar, -4);
+	$acak				= rand(11111, 99999);
+	$ubah				= str_replace($pindah, $acak.$pindah, $pindah);
+	move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
+
+	//insert to database
+	$addto				= "http://localhost/adminlte/gambar/user-img/".$ubah;
+
 	$penulis		= $_SESSION['id'];
 	$date			= date('Y-m-d');
 	$jam			= date('H:i')." WIB";
 	$gambar			= "";
 
-	$sql = "UPDATE artikel SET
+	$sql1 = "UPDATE artikel SET
 			judul 		= '$judul',
 			isi 		= '$isi',
 			user_id		= '$penulis',

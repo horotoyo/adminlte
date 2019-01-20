@@ -15,7 +15,7 @@ $tmp_name			= $_FILES['gambar']['tmp_name'];
 
 
 $acak				= rand(11111, 99999);
-$ubah				= str_replace($nama_gambar, $acak."jpg", $nama_gambar);
+$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
 move_uploaded_file($tmp_name, "../../gambar/artikel-img/".$ubah);
 $addto				= "http://localhost/adminlte/gambar/artikel-img/".$ubah;
 

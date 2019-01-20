@@ -148,7 +148,7 @@ if (isset($_SESSION['email'])) {
                   <img src="<?= $row['photo']?>" width="150px"><br><br>
                   <input type="file" id="gambar" name="gambar"></input>
                   <input type="hidden" name="regambar" value="<?= $row['photo'] ?>">
-                  JPG, JPEG, PNG format
+                  JPG, JPEG, PNG format (maksimal ukuran gambar 1MB)
                   </div>
                 </div>
               </div>
