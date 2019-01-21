@@ -22,7 +22,7 @@ function ext() {
   alert("Format file anda tidak sesuai!");
 }
 
-if ((in_array($ext, $allowed)) && ($size_gambar < 10000000) {
+if ((in_array($ext, $allowed)) && ($size_gambar < 10000000)) {
 	$acak				= rand(1111111, 9999999);
 	$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
 
