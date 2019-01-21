@@ -96,7 +96,9 @@ if (isset($_SESSION['email'])) {
         					<option value="">-- Pilih Kategori --</option>
         					<?php
         						include '../../config/koneksi.php';
-        						$sql 	= "SELECT * FROM kategori";
+
+                    $metu = $_SESSION['id'];
+        						$sql 	= "SELECT * FROM kategori WHERE id_user=$metu";
         						$result = mysqli_query($konek, $sql);
         						if (mysqli_num_rows($result) > 0) {
         							while ($row = mysqli_fetch_assoc($result)) {

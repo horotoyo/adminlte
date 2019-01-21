@@ -89,6 +89,29 @@ if (isset($_SESSION['email'])) {
                   </div>
                 </div>
               </div>
+
+
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="type" class="col-sm-2 control-label">Tipe User</label>
+                  <div class="col-sm-10">
+                  <select name="type" id="type" class="form-control" required="">
+                  <option value="">-- Pilih Tipe User --</option>
+                  <?php
+                    include '../../config/koneksi.php';
+                    $sql  = "SELECT * FROM role";
+                    $result = mysqli_query($konek, $sql);
+                    if (mysqli_num_rows($result) > 0) {
+                      while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value=".$row['id'].">".$row['nama']."</option>";
+                      }
+                    }
+                  ?>
+                </select>
+                  </div>
+                </div>
+              </div>
+
               <div class="box-body">
                 <div class="form-group">
                   <label for="email" class="col-sm-2 control-label">Email</label>

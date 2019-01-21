@@ -97,52 +97,74 @@ if (isset($_SESSION['email'])) {
               </thead>
                 <?php
                   include '../../config/koneksi.php';
+                  include '../../config/function.php';
+
+                  $metu   = $_SESSION['user'];
+                  $tampil = $_SESSION['id'];
                   $nomor  = 1;
-                  $sql    = "SELECT kategori.id, kategori.nama as jenis, artikel.id, artikel.judul, artikel.isi, artikel.user_id, artikel.status,artikel.jam, artikel.rilis FROM artikel INNER JOIN kategori ON kategori.id = artikel.kategori_id";
-                  $result = mysqli_query($konek, $sql);
 
+                  //showing admin user
+                  $sql1   = "SELECT kategori.id, kategori.nama as jenis, artikel.id, artikel.judul, artikel.isi, artikel.user_id, artikel.status,artikel.jam, artikel.rilis FROM artikel INNER JOIN kategori ON kategori.id = artikel.kategori_id";
+                  $result1 = mysqli_query($konek, $sql1);
 
-                  function namaUser($id) {
-                    global $konek;
-                    $name    = "SELECT name FROM user WHERE id=".$id;
-                    $hasil   = mysqli_query($konek, $name);
-                    $kolom   = mysqli_fetch_assoc($hasil);
+                  //showing author user
+                  $sql2    = "SELECT kategori.id, kategori.nama as jenis, artikel.id, artikel.judul, artikel.isi, artikel.user_id, artikel.status,artikel.jam, artikel.rilis FROM artikel INNER JOIN kategori ON kategori.id = artikel.kategori_id WHERE user_id=$tampil";
+                  $result2 = mysqli_query($konek, $sql2);
 
-                    return $kolom['name'];
-                  }
-
-                  function jika($status) {
-                    if ($status==1) {
-                      return "<em style='color:#008bd1'>Active</em>";
-                    } else {
-                      return "<em style='color:#ff0000'>Non-Active</em>";}
-                    }
-
-                  if (mysqli_num_rows($result)>0) {
-                    while ($row = mysqli_fetch_assoc($result)){
-                      echo "
-                        <tr>
-                          <td>".$nomor++."</td>
-                          <td>".$row['judul']."</td>
-                          <td>".namaUser($row['user_id'])."</td>
-                          <td>".$row['jenis']."</td>
-                          <td>".jika($row['status'])."</td>
-                          <td>".$row['jam']."</td>
-                          <td>".date('d F Y', strtotime($row['rilis']))."</td>
-                          <td>
-                            <a href='edit_artikel.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                            <a href='delete_artikel.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
-                          </td>
-                        </tr>
-                      ";
-                    }
+                  if ($metu == 1) {
+                     if (mysqli_num_rows($result1)>0) {
+                        while ($row1 = mysqli_fetch_assoc($result1)){
+                          echo "
+                            <tr>
+                              <td>".$nomor++."</td>
+                              <td>".$row1['judul']."</td>
+                              <td>".namaUser($row1['user_id'])."</td>
+                              <td>".$row1['jenis']."</td>
+                              <td>".jika($row1['status'])."</td>
+                              <td>".$row1['jam']."</td>
+                              <td>".date('d F Y', strtotime($row1['rilis']))."</td>
+                              <td>
+                                <a href='edit_artikel.php?id=".$row1['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                                <a href='delete_artikel.php?id=".$row1['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                              </td>
+                            </tr>
+                          ";
+                        }
+                      } else {
+                        echo "
+                          <tr>
+                            <td colspan='8' align='center'>Tidak ada data yang ditemukan sebagai admin.</td>
+                          </tr>
+                        ";
+                      }
                   } else {
-                    echo "
-                      <tr>
-                        <td colspan='8' align='center'>Tidak ada data yang ditemukan.</td>
-                      </tr>
-                    ";
+                    if (mysqli_num_rows($result2)>0) {
+                        while ($row2 = mysqli_fetch_assoc($result2)){
+                          echo "
+                            <tr>
+                              <td>".$nomor++."</td>
+                              <td>".$row2['judul']."</td>
+                              <td>".namaUser($row2['user_id'])."</td>
+                              <td>".$row2['jenis']."</td>
+                              <td>".jika($row2['status'])."</td>
+                              <td>".$row2['jam']."</td>
+                              <td>".date('d F Y', strtotime($row2['rilis']))."</td>
+                              <td>
+                                <a href='edit_artikel.php?id=".$row2['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                                <a href='delete_artikel.php?id=".$row2['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                              </td>
+                            </tr>
+                          ";
+                        }
+                      } else {
+                        echo "
+                          <tr>
+                            <td colspan='8' align='center'>Tidak ada data yang ditemukan sebagai author.</td>
+                          </tr>
+                        ";
+                      }
                   }
+                 
                   ?>
               </table>
 

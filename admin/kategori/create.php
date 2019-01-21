@@ -85,6 +85,7 @@ if (isset($_SESSION['email'])) {
 
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputEmail3" placeholder="Masukan Kategori" name="kategori" required>
+                    <input type="hidden" name="user" value="<?= $_SESSION['id'] ?>">
                   </div>
                 </div>
               <!-- /.box-body -->

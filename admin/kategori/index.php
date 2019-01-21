@@ -87,35 +87,74 @@ if (isset($_SESSION['email'])) {
                   <tr>
                     <th style="width: 10px">No</th>
                     <th>Nama</th>
+                    <th>Pembuat</th>
                     <th>Action</th>
                   </tr>
               </thead>
                 <?php
                   include '../../config/koneksi.php';
+
+                  $user   = $_SESSION['id'];
+                  $metu   = $_SESSION['user'];
                   $nomor  = 1;
-                  $sql    = "SELECT * FROM kategori ORDER BY nama ASC";
-                  $result = mysqli_query($konek, $sql);
+
+                  //for showing as admin
+                  $sql1    = "SELECT user.id, user.name as asma, kategori.id as urut, kategori.nama as nama FROM kategori
+                             INNER JOIN user ON user.id = kategori.id_user";
+                  $result1 = mysqli_query($konek, $sql1);
+
+                  //for showing as author
+                  $sql2    = "SELECT user.id, user.name as asma, kategori.id as urut, kategori.nama as nama FROM kategori
+                             INNER JOIN user ON user.id = kategori.id_user WHERE id_user='$user'";
+                  $result2 = mysqli_query($konek, $sql2);
                   
-                  if (mysqli_num_rows($result)>0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
+
+                  if ($metu == 1) {
+                    if (mysqli_num_rows($result1)>0) {
+                      while ($row1 = mysqli_fetch_assoc($result1)) {
+                        echo "
+                          <tr>
+                            <td>".$nomor++."</td>
+                            <td>".$row1['nama']."</td>
+                            <td>".$row1['asma']."</td>
+                            <td>
+                              <a href='edit_kategori.php?id=".$row1['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_kategori.php?id=".$row1['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                            </td>
+                          </tr>
+                        ";
+                      }
+                    } else {
                       echo "
                         <tr>
-                          <td>".$nomor++."</td>
-                          <td>".$row['nama']."</td>
-                          <td>
-                            <a href='edit_kategori.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                            <a href='delete_kategori.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
-                          </td>
+                          <td colspan='4' align='center'>Tidak ada data yang ditemukan.</td>
                         </tr>
                       ";
                     }
                   } else {
-                    echo "
-                      <tr>
-                        <td colspan='3' align='center'>Tidak ada data yang ditemukan.</td>
-                      </tr>
-                    ";
+                    if (mysqli_num_rows($result2)>0) {
+                      while ($row2 = mysqli_fetch_assoc($result2)) {
+                        echo "
+                          <tr>
+                            <td>".$nomor++."</td>
+                            <td>".$row2['nama']."</td>
+                            <td>".$row2['asma']."</td>
+                            <td>
+                              <a href='edit_kategori.php?id=".$row2['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_kategori.php?id=".$row2['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                            </td>
+                          </tr>
+                        ";
+                      }
+                    } else {
+                      echo "
+                        <tr>
+                          <td colspan='4' align='center'>Tidak ada data yang ditemukan.</td>
+                        </tr>
+                      ";
+                    }
                   }
+                  
                   ?>
               </table>
 

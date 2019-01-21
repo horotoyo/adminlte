@@ -5,6 +5,7 @@ include '../../config/koneksi.php';
 $nama				= $_POST['nama'];
 $email				= $_POST['email'];
 $password			= $_POST['password'];
+$type 				= $_POST['type'];
 
 
 //Input files gambar
@@ -15,31 +16,37 @@ $size_gambar		= $_FILES['gambar']['size'];
 $ext 				= pathinfo($nama_gambar, PATHINFO_EXTENSION);
 
 
-// echo $size_gambar;
-// exit();
-//alert for undefined extension
-function ext() {
-  alert("Format file anda tidak sesuai!");
-}
+$acak				= rand(1111111, 9999999);
+$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
 
-if ((in_array($ext, $allowed)) && ($size_gambar < 10000000)) {
-	$acak				= rand(1111111, 9999999);
-	$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
+move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
 
-	move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
+$sql = "INSERT INTO user (name, email, password, photo)
+		VALUES ('$nama', '$email', '$password', '$ubah')";
+mysqli_query($konek,$sql);
+header('location:index.php');
 
-	$sql = "INSERT INTO user (name, email, password, photo)
-			VALUES ('$nama', '$email', '$password', '$ubah')";
-	mysqli_query($konek,$sql);
-	header('location:index.php');	
-} else {
-	echo "
-			<script type='text/javascript'>
-				alert('file extention not allowed');
-				window.location.href='create.php?file_type_not_allowed_error';
-			</script>
-		";
-}
+// function ext() {
+//   alert("Format file anda tidak sesuai!");
+// }
 
+// if ((in_array($ext, $allowed)) && ($size_gambar < 10000000)) {
+// 	$acak				= rand(1111111, 9999999);
+// 	$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
+
+// 	move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
+
+// 	$sql = "INSERT INTO user (name, email, password, photo, role_id)
+// 			VALUES ('$nama', '$email', '$password', '$ubah', '$type')";
+// 	mysqli_query($konek,$sql);
+// 	header('location:index.php');	
+// } else {
+// 	echo "
+// 			<script type='text/javascript'>
+// 				alert('file extention not allowed');
+// 				window.location.href='create.php?file_type_not_allowed_error';
+// 			</script>
+// 		";
+// }
 
 ?>
