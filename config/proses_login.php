@@ -4,6 +4,8 @@ include 'koneksi.php';
 $email		= $_POST['email'];
 $pass		= $_POST['password'];
 
+$masuk		= '../config/koneksi.php';
+
 //checking type user
 $sql1		= "SELECT * FROM role";
 $query1		= mysqli_query($konek, $sql1);
@@ -19,7 +21,16 @@ if(!empty($email) && !empty($pass)) {
 		$_SESSION['photo']	= $row2['photo'];
 		$_SESSION['id']		= $row2['id'];
 		$_SESSION['user']	= $row2['role_id'];
+
+		//checking for type user
+		$user     = $_SESSION['user'];
+		$sql3     = "SELECT role.id, role.nama as tipe, user.id as urut, user.name FROM user INNER JOIN role ON role.id=user.role_id WHERE role_id=$user";
+		$query3   = mysqli_query($konek, $sql3);
+		$row3     = mysqli_fetch_assoc($query3);
+		$_SESSION['tipe']	= $row3['tipe'];
+
 		header('location: ../admin/index.php');
+
 	} else {
 		echo "Email anda salah";
 	}

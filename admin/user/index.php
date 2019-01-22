@@ -88,12 +88,28 @@ if (isset($_SESSION['email'])) {
                     <th style="width: 10px">No</th>
                     <th>Nama</th>
                     <th>E-mail</th>
-                    <th>Password</th>
-                    <th>Action</th>
+                    <?php
+                    include '../../config/koneksi.php';
+
+                    $user   = $_SESSION['id'];
+                    $metu   = $_SESSION['user'];
+
+                    if ($metu == 1) {
+                      echo "
+                            <th>Password</th>
+                            <th>Action</th>
+                      ";
+                    }
+
+                    ?>
                   </tr>
               </thead>
                 <?php
                   include '../../config/koneksi.php';
+
+                  $user   = $_SESSION['id'];
+                  $metu   = $_SESSION['user'];
+
                   $nomor  = 1;
                   $sql    = "SELECT * FROM user";
                   $result = mysqli_query($konek, $sql);
@@ -115,28 +131,49 @@ if (isset($_SESSION['email'])) {
                       return "<em style='color:#ff0000'>Non-Active</em>";}
                     }
 
-                  if (mysqli_num_rows($result)>0) {
-                    while ($row = mysqli_fetch_assoc($result)){
+                  if ($metu == 1) {
+                    if (mysqli_num_rows($result)>0) {
+                      while ($row = mysqli_fetch_assoc($result)){
+                        echo "
+                          <tr>
+                            <td>".$nomor++."</td>
+                            <td>".$row['name']."</td>
+                            <td>".$row['email']."</td>
+                            <td>".$row['password']."</td>
+                            <td>
+                              <a href='edit_user.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_user.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                            </td>
+                          </tr>
+                        ";
+                      }
+                    } else {
                       echo "
                         <tr>
-                          <td>".$nomor++."</td>
-                          <td>".$row['name']."</td>
-                          <td>".$row['email']."</td>
-                          <td>".$row['password']."</td>
-                          <td>
-                            <a href='edit_user.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                            <a href='delete_user.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
-                          </td>
+                          <td colspan='8' align='center'>Tidak ada data yang ditemukan.</td>
                         </tr>
                       ";
                     }
                   } else {
-                    echo "
-                      <tr>
-                        <td colspan='8' align='center'>Tidak ada data yang ditemukan.</td>
-                      </tr>
-                    ";
+                    if (mysqli_num_rows($result)>0) {
+                      while ($row = mysqli_fetch_assoc($result)){
+                        echo "
+                          <tr>
+                            <td>".$nomor++."</td>
+                            <td>".$row['name']."</td>
+                            <td>".$row['email']."</td>
+                          </tr>
+                        ";
+                      }
+                    } else {
+                      echo "
+                        <tr>
+                          <td colspan='8' align='center'>Tidak ada data yang ditemukan.</td>
+                        </tr>
+                      ";
+                    }
                   }
+                  
                   ?>
               </table>
 
