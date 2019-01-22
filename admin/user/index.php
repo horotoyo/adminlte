@@ -108,7 +108,6 @@ if (isset($_SESSION['email'])) {
 
                     if ($metu == 1) {
                       echo "
-                            <th>Password</th>
                             <th>Action</th>
                       ";
                     }
@@ -150,8 +149,7 @@ if (isset($_SESSION['email'])) {
                           <tr>
                             <td>".$nomor++."</td>
                             <td>".$row['name']."</td>
-                            <td>".$row['email']."</td>
-                            <td>".$row['password']."</td>
+                            <td>".$row['email']."</td>  
                             <td>
                               <a href='edit_user.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
                               <a href='delete_user.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
