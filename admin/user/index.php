@@ -76,7 +76,19 @@ if (isset($_SESSION['email'])) {
       <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">User</h3>
-              <a href="http://localhost/adminlte/admin/user/create.php" class="btn btn-primary pull-right">Create</a>
+              <?php
+                    include '../../config/koneksi.php';
+
+                    $user   = $_SESSION['id'];
+                    $metu   = $_SESSION['user'];
+
+                    if ($metu == 1) {
+                      echo "
+                              <a href='http://localhost/adminlte/admin/user/create.php' class='btn btn-primary pull-right'>Create</a>
+                          ";
+                    }
+
+                    ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
