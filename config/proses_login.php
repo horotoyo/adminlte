@@ -2,7 +2,7 @@
 session_start();
 include 'koneksi.php';
 $email		= $_POST['email'];
-$pass		= $_POST['password'];
+$pass		= md5($_POST['password']);
 
 $masuk		= '../config/koneksi.php';
 
@@ -16,11 +16,11 @@ if(!empty($email) && !empty($pass)) {
 	$query2		= mysqli_query($konek, $sql2);
 	$row2 		= mysqli_fetch_assoc($query2);
 	if (mysqli_num_rows($query2)>0) {
-		$_SESSION['email']	= $email;
-		$_SESSION['name']	= $row2['name'];
-		$_SESSION['photo']	= $row2['photo'];
-		$_SESSION['id']		= $row2['id'];
-		$_SESSION['user']	= $row2['role_id'];
+		$_SESSION['email']		= $email;
+		$_SESSION['name']		= $row2['name'];
+		$_SESSION['photo']		= $row2['photo'];
+		$_SESSION['id']			= $row2['id'];
+		$_SESSION['user']		= $row2['role_id'];
 
 		//checking for type user
 		$user     = $_SESSION['user'];

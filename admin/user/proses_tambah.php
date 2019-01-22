@@ -4,7 +4,7 @@ include '../../config/koneksi.php';
 
 $nama				= $_POST['nama'];
 $email				= $_POST['email'];
-$password			= $_POST['password'];
+$password			= md5($_POST['password']);
 $type 				= $_POST['type'];
 
 

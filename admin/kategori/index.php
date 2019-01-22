@@ -118,8 +118,8 @@ if (isset($_SESSION['email'])) {
                             <td>".$row1['nama']."</td>
                             <td>".$row1['asma']."</td>
                             <td>
-                              <a href='edit_kategori.php?id=".$row1['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                              <a href='delete_kategori.php?id=".$row1['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                              <a href='edit_kategori.php?id=".$row1['urut']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_kategori.php?id=".$row1['urut']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
                             </td>
                           </tr>
                         ";
@@ -140,8 +140,8 @@ if (isset($_SESSION['email'])) {
                             <td>".$row2['nama']."</td>
                             <td>".$row2['asma']."</td>
                             <td>
-                              <a href='edit_kategori.php?id=".$row2['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                              <a href='delete_kategori.php?id=".$row2['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                              <a href='edit_kategori.php?id=".$row2['urut']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_kategori.php?id=".$row2['urut']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
                             </td>
                           </tr>
                         ";

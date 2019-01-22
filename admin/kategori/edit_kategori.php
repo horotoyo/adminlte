@@ -82,11 +82,11 @@ if (isset($_SESSION['email'])) {
             <?php
             include '../../config/koneksi.php';
 
-            $ID       = $_GET['id'];
-            $sql1     = "SELECT * FROM kategori WHERE id=$ID";
-            $result   = mysqli_query($konek, $sql1);
-            $row      = mysqli_fetch_assoc($result);
-            $_SESSION['nama'] = $row['nama'];
+            $ID        = $_GET['id'];
+            $sql1      = "SELECT * FROM kategori WHERE id=$ID";
+            $result1   = mysqli_query($konek, $sql1);
+            $row1      = mysqli_fetch_assoc($result1);
+
             ?>
            <form class="form-horizontal" action="proses_edit.php" method="POST">
               <div class="box-body">
@@ -95,7 +95,7 @@ if (isset($_SESSION['email'])) {
 
                   <div class="col-sm-10">
                     <input type="hidden" name="id" value="<?php echo $ID; ?>">
-                    <input type="text" class="form-control" id="inputEmail3" value="<?php echo $_SESSION['nama']?>" name="kategori" required>
+                    <input type="text" class="form-control" id="inputEmail3" value="<?= $row1['nama'] ?>" name="kategori" required>
                   </div>
                 </div>
               <!-- /.box-body -->

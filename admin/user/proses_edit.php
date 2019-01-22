@@ -10,19 +10,32 @@ $password			= $_POST['password'];
 $nama_gambar		= $_FILES['gambar']['name'];
 $tmp_name			= $_FILES['gambar']['tmp_name'];
 
-//move and rename
-$acak				= rand(1111111, 9999999);
-$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
-move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
+$sql1 		= "SELECT * FROM user WHERE id=$ID";
+$result1	= mysqli_query($konek, $sql1);
+$row		= mysqli_fetch_row($result1);
+$hapus		= $row[4];
+$sandi		= $row[3];
+$del 		= "../../gambar/user-img/".$hapus;
 
-//Jika tidak mengubah gambar
-$sql1	= "UPDATE user SET 
-			name  		= '$nama',
-			email 		= '$email',
-			password 	= '$password'
-			WHERE id 	= '$ID'";
+//Percabangan jika mengubah gambar atau tidak
+if (empty($nama_gambar)) {
+	$nama_gambar	= $hapus;
+	$ubah			= $nama_gambar;
+} else {
+	unlink($del);
+	//move and rename
+	$acak				= rand(1111111, 9999999);
+	$ubah				= str_replace($nama_gambar, $acak.".jpg", $nama_gambar);
+	move_uploaded_file($tmp_name, "../../gambar/user-img/".$ubah);
+}
 
-//Jika mengubah gambar
+//Percabangan jika mengubah sandi atau tidak
+if (empty($password)) {
+	$password 		= $sandi;
+} else {
+	$password		= md5($_POST['password']);
+}
+
 $sql2	= "UPDATE user SET 
 			name 		= '$nama',
 			email 		= '$email',
@@ -30,20 +43,7 @@ $sql2	= "UPDATE user SET
 			photo		= '$ubah'
 			WHERE id 	= '$ID'";
 
-//Ambil Data
-$ambil		= "SELECT * FROM user where id='$ID'";
-$hasil   	= mysqli_query($konek, $ambil);
-$row	   	= mysqli_fetch_assoc($hasil);
-$hapus		= $row['photo'];
-$del 		= "../../gambar/user-img/".$hapus;
-
-if (empty($nama_gambar)) {	
-	mysqli_query($konek,$sql1);
-	header('location:index.php');
-} else {
-	unlink($del);
-	mysqli_query($konek,$sql2);
-	header('location:index.php');
-}
+mysqli_query($konek,$sql2);
+header('location:index.php');
 
 ?>

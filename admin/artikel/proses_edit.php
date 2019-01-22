@@ -28,7 +28,6 @@ session_start();
 	$sql1 = "UPDATE artikel SET
 			judul 		= '$judul',
 			isi 		= '$isi',
-			user_id		= '$penulis',
 			status 		= '$status',
 			kategori_id	= '$kategori',
 			jam 		= '$jam',
@@ -39,7 +38,6 @@ session_start();
 	$sql2 = "UPDATE artikel SET
 			judul 		= '$judul',
 			isi 		= '$isi',
-			user_id		= '$penulis',
 			gambar		= '$ubah',
 			status 		= '$status',
 			kategori_id	= '$kategori',
