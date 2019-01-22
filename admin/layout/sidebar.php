@@ -6,7 +6,18 @@
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['name']?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i><?= $_SESSION['tipe'] ?></a>
+          <a href="#">
+            <?php
+            $cek    = $_SESSION['user'];
+
+            if ($cek == 1) {
+              echo "<i class='fa fa-circle text-primary'></i>";
+            } else {
+              echo "<i class='fa fa-circle text-success'></i>";
+            }
+            ?>
+
+            <?= $_SESSION['tipe'] ?></a>
         </div>
       </div>
       <!-- search form -->
