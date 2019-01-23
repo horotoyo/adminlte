@@ -1,4 +1,4 @@
-<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/umandalroald/adminlte/master/favicon.ico"/>
+<link rel="shortcut icon" type="image/png" href="http://localhost/adminlte/favicon.png"/>
 
  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/jvectormap/jquery-jvectormap.css">
+   <!-- DataTables -->
+  <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

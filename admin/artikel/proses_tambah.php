@@ -8,7 +8,8 @@ $isi				= $_POST['isi'];
 $penulis			= $_SESSION['id'];
 $date				= date('Y-m-d');
 $jam				= date('H:i')." WIB";
-$status				= $_POST['status'];
+// $status				= $_POST['status'];
+$status				= 0;
 
 $nama_gambar		= $_FILES['gambar']['name'];
 $tmp_name			= $_FILES['gambar']['tmp_name'];

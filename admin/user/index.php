@@ -75,31 +75,35 @@ if (isset($_SESSION['email'])) {
     <section class="content">
       <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">User</h3>
-              <?php
-                    include '../../config/koneksi.php';
+              <a href="http://localhost/adminlte/admin/user/create.php" class="btn btn-primary pull-left"><i class="fa fa-plus-circle"></i> Create</a>
 
-                    $user   = $_SESSION['id'];
-                    $metu   = $_SESSION['user'];
+              <!-- <div class="box-tools">
+                <?php
+                // $pencarian  = isset($_GET['cari'])?$_GET['cari']:'';
+                ?>
+                <form action="" method="GET">
+                <a href="http://localhost/adminlte/admin/kategori/index.php" class="btn btn-default pull-right">Clear</a>
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="cari" class="form-control pull-right" placeholder="Search" value="<?= $pencarian?>">
+                  <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+                </div>
+                </form>
+              </div> -->
 
-                    if ($metu == 1) {
-                      echo "
-                              <a href='http://localhost/adminlte/admin/user/create.php' class='btn btn-primary pull-right'>Create</a>
-                          ";
-                    }
-
-                    ?>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
 
-            <table class="table table-bordered">
+            <table id="example1" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <tr>
                     <th style="width: 10px">No</th>
                     <th>Nama</th>
                     <th>E-mail</th>
+                    <th>Tipe User</th>
                     <?php
                     include '../../config/koneksi.php';
 
@@ -122,7 +126,7 @@ if (isset($_SESSION['email'])) {
                   $metu   = $_SESSION['user'];
 
                   $nomor  = 1;
-                  $sql    = "SELECT * FROM user";
+                  $sql    = "SELECT role.id, role.nama as tipe, user.id as urut, user.name as nama, user.email as email FROM user INNER JOIN role ON role.id=user.role_id";
                   $result = mysqli_query($konek, $sql);
                   $url    = "http://localhost/adminlte/gambar/user-img/";
 
@@ -148,11 +152,12 @@ if (isset($_SESSION['email'])) {
                         echo "
                           <tr>
                             <td>".$nomor++."</td>
-                            <td>".$row['name']."</td>
-                            <td>".$row['email']."</td>  
+                            <td>".$row['nama']."</td>
+                            <td>".$row['email']."</td> 
+                            <td>".$row['tipe']."</td>  
                             <td>
-                              <a href='edit_user.php?id=".$row['id']."' class='btn btn-primary btn-xs'>Edit</a> 
-                              <a href='delete_user.php?id=".$row['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                              <a href='edit_user.php?id=".$row['urut']."' class='btn btn-primary btn-xs'>Edit</a> 
+                              <a href='delete_user.php?id=".$row['urut']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
                             </td>
                           </tr>
                         ";
@@ -170,8 +175,9 @@ if (isset($_SESSION['email'])) {
                         echo "
                           <tr>
                             <td>".$nomor++."</td>
-                            <td>".$row['name']."</td>
+                            <td>".$row['nama']."</td>
                             <td>".$row['email']."</td>
+                            <td>".$row['tipe']."</td>
                           </tr>
                         ";
                       }
@@ -189,13 +195,6 @@ if (isset($_SESSION['email'])) {
 
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-              </ul>
-            </div>
-          </div>
     </section>
     <!-- /.content -->
   </div>

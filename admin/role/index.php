@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['email'])) {
   
 ?>
-<?php $thisPage = "Artikel"; ?>
+<?php $thisPage = "Role"; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +13,6 @@ if (isset($_SESSION['email'])) {
  <?php
  include '../layout/header.php';
  ?>
-   <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/all.css">
   <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
@@ -64,95 +62,73 @@ if (isset($_SESSION['email'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Artikel
+        Role
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Artikel</li>
+        <li class="active">Role</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Tambah Artikel</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" action="proses_tambah.php" method="POST" enctype="multipart/form-data">
-          <div class="box-body">
-
-            <div class="form-group">
-              <label for="judul">Judul</label>
-              <input type="text" class="form-control" id="judul" placeholder="Masukan Judul Artikel" name="judul">
+            <div class="box-header with-border">
+              <a href="http://localhost/adminlte/admin/role/create.php" class="btn btn-primary pull-left"><i class="fa fa-plus-circle"></i> Create</a>
             </div>
+            <!-- /.box-header -->
+            <div class="box-body">
 
-            <div class="form-group">
-              <label>Kategori</label>
-              <select name="kategori" id="category" class="form-control" required="">
-                <option value="">-- Pilih Kategori --</option>
-                  <?php
-                    include '../../config/koneksi.php';
+            <table id="example1" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <tr>
+                    <th style="width: 10px">No</th>
+                    <th>Tipe User</th>
+                    <th>Action</th>
+                  </tr>
+              </thead>
+                <?php
+                  include '../../config/koneksi.php';
 
-                    $metu = $_SESSION['id'];
-                    $sql  = "SELECT * FROM kategori WHERE id_user=$metu";
-                    $result = mysqli_query($konek, $sql);
-                    if (mysqli_num_rows($result) > 0) {
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<option value=".$row['id'].">".$row['nama']."</option>";
+                  $user   = $_SESSION['id'];
+                  $metu   = $_SESSION['user'];
+                  $nomor  = 1;
+                  // $cari   = isset($_GET['cari'])?$_GET['cari']:'';
+
+
+                  //for showing as admin
+                  $sql1    = "SELECT * FROM role";
+                  $result1 = mysqli_query($konek, $sql1);
+
+
+                   if (mysqli_num_rows($result1)>0) {
+                      while ($row1 = mysqli_fetch_assoc($result1)) {
+                        echo "
+                          <tr>
+                            <td>".$nomor++."</td>
+                            <td>".$row1['nama']."</td>
+                            <td>
+                              <a href='edit_role.php?id=".$row1['id']."' class='btn btn-primary btn-xs'> Edit</a> 
+                              <a href='delete_role.php?id=".$row1['id']."' onclick='javascript:return confirm(\"Apakah anda yakin ingin menghapus data ini?\")' class='btn btn-danger btn-xs'>Delete</a>
+                            </td>
+                          </tr>
+                        ";
                       }
-                    }
-                  ?>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="isi">Isi Artikel</label>
-              <div>
-                <textarea class="box-body pad" id="editor1" name="isi" rows="10" cols="80"></textarea>
-              </div>
-            </div>
-
-            <?php
-              $role   = $_SESSION['user'];
-
-              if (($role == 1) OR ($role == 3)) {
-                echo "
-                      <div class='form-group'>
-                        <label for='status'>Status</label>
-                        <div class='form-group'>
-                          <label for='active'>
-                            <input type='radio' name='status' value='1' id='active' class='minimal-red' required>
-                            Active</label>
-                          <label for='non-active'>
-                            <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required>
-                            Non-Active</label>
-                        </div>
-                      </div>
+                    } else {
+                      echo "
+                        <tr>
+                          <td colspan='4' align='center'>Tidak ada data yang ditemukan.</td>
+                        </tr>
                       ";
-              }
-            ?>
+                    }
+                  
+                  ?>
+              </table>
 
-
-            <div class="form-group">
-              <label for="status">Gambar</label>
-              <input type="file" name="gambar">
             </div>
-
-            <div class="box-footer">
-                <a type="reset" class="btn btn-default" href="http://localhost/adminlte/admin/artikel">Cancel</a>
-                <button type="submit" class="btn btn-info pull-right">Create</button>
-            </div>
-
-
-        </div>
-        </form>
-
-           
-      </div>
-       <!-- /.box -->
+            <!-- /.box-body -->
     </section>
     <!-- /.content -->
   </div>
@@ -358,34 +334,6 @@ if (isset($_SESSION['email'])) {
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
-
-<!-- jQuery 3 -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/demo.js"></script>
-<!-- CK Editor -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/ckeditor/ckeditor.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('editor1')
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
-  })
-</script>
-
-
 </div>
 <!-- ./wrapper -->
 

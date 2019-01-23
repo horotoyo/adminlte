@@ -86,6 +86,7 @@ if (isset($_SESSION['email'])) {
             include '../../config/koneksi.php';
 
             $ID       = $_GET['id'];
+            $role     = $_SESSION['user'];
             $sql      = "SELECT * FROM artikel WHERE id=$ID";
             $result   = mysqli_query($konek, $sql);
             $row      = mysqli_fetch_assoc($result);
@@ -133,34 +134,41 @@ if (isset($_SESSION['email'])) {
     		         </div>
                 </div>
 
-                <div>
-                	<label for="status">Status</label>
-                	<div class="form-group">
                     <?php
                     include '../../config/koneksi.php';
 
-                    if ($cek == 1) {
-                      echo "
-                      <label for='active'>
-                      <input type='radio' name='status' value='1' id='active' class='minimal-red' required checked>
-                      Active</label>
-                      <label for='non-active'>
-                      <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required>
-                      Non-Active</label>
-                      ";
-                    } else {
-                      echo "
-                      <label for='active'>
-                      <input type='radio' name='status' value='1' id='active' class='minimal-red' required>
-                      Active</label>
-                      <label for='non-active'>
-                      <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required checked>
-                      Non-Active</label>
-                      ";
+                    if (($role == 3) OR ($role == 1)) {
+                      if ($cek == 1) {
+                        echo "
+                         <div>
+                          <label for='status'>Status</label>
+                          <div class='form-group'>
+                            <label for='active'>
+                            <input type='radio' name='status' value='1' id='active' class='minimal-red' required checked>
+                            Active</label>
+                            <label for='non-active'>
+                            <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required>
+                            Non-Active</label>
+                        </div>
+                        ";
+                      } else {
+                        echo "
+                        <div>
+                          <label for='status'>Status</label>
+                          <div class='form-group'>
+                            <label for='active'>
+                            <input type='radio' name='status' value='1' id='active' class='minimal-red' required>
+                            Active</label>
+                            <label for='non-active'>
+                            <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required checked>
+                            Non-Active</label>
+                          </div>
+                          ";
+                      }  
                     }
+                    
 
                     ?>
-      					</div>
 
                 <div class="form-group">
                   <label for="gambar">Photo Profile</label>

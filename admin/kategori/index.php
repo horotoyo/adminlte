@@ -13,8 +13,7 @@ if (isset($_SESSION['email'])) {
  <?php
  include '../layout/header.php';
  ?>
-  <!-- Google Font -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -75,13 +74,29 @@ if (isset($_SESSION['email'])) {
     <section class="content">
       <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Kategori</h3>
-              <a href="http://localhost/adminlte/admin/kategori/create.php" class="btn btn-primary pull-right">Create</a>
+              <a href="http://localhost/adminlte/admin/kategori/create.php" class="btn btn-primary pull-left"><i class="fa fa-plus-circle"></i> Create</a>
+
+              <!-- <div class="box-tools">
+                <?php
+                // $pencarian  = isset($_GET['cari'])?$_GET['cari']:'';
+                ?>
+
+                <form action="" method="GET">
+                <a href="http://localhost/adminlte/admin/kategori/index.php" class="btn btn-default pull-right">Clear</a>
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="cari" class="form-control pull-right" placeholder="Search" value="<?= $pencarian?>">
+                  <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+                </div>
+                </form>
+              </div> -->
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
 
-            <table class="table table-bordered">
+            <table id="example1" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <tr>
@@ -95,8 +110,10 @@ if (isset($_SESSION['email'])) {
                   include '../../config/koneksi.php';
 
                   $user   = $_SESSION['id'];
-                  $metu   = $_SESSION['user'];
+                  $role   = $_SESSION['user'];
                   $nomor  = 1;
+                  // $cari   = isset($_GET['cari'])?$_GET['cari']:'';
+
 
                   //for showing as admin
                   $sql1    = "SELECT user.id, user.name as asma, kategori.id as urut, kategori.nama as nama FROM kategori
@@ -109,7 +126,7 @@ if (isset($_SESSION['email'])) {
                   $result2 = mysqli_query($konek, $sql2);
                   
 
-                  if ($metu == 1) {
+                  if ($role == 1) {
                     if (mysqli_num_rows($result1)>0) {
                       while ($row1 = mysqli_fetch_assoc($result1)) {
                         echo "
@@ -160,13 +177,6 @@ if (isset($_SESSION['email'])) {
 
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-              </ul>
-            </div>
-          </div>
     </section>
     <!-- /.content -->
   </div>

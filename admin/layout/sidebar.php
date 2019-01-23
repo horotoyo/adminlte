@@ -8,15 +8,16 @@
           <p><?php echo $_SESSION['name']?></p>
           <a href="#">
             <?php
-            $cek    = $_SESSION['user'];
+            $role    = $_SESSION['user'];
 
-            if ($cek == 1) {
+            if ($role == 1) {
+              echo "<i class='fa fa-circle text-default'></i>";
+            } elseif($role == 2 ) {
               echo "<i class='fa fa-circle text-primary'></i>";
             } else {
               echo "<i class='fa fa-circle text-success'></i>";
             }
             ?>
-
             <?= $_SESSION['tipe'] ?></a>
         </div>
       </div>
@@ -33,30 +34,89 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
     <!-- /.sidebar -->
- <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li <?php if($thisPage == "Dashboard") echo "class='active'"; ?>>
-          <a href="http://localhost/adminlte/admin">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-          </a>
-        </li>
-        <li <?php if($thisPage == "Kategori") echo "class='active'"; ?>>
-          <a href="http://localhost/adminlte/admin/kategori">
-            <i class="fa fa-pie-chart"></i>
-            <span>Kategori</span>
-          </a>
-        </li>
-        <li <?php if($thisPage == "Artikel") echo "class='active'"; ?>>
-          <a href="http://localhost/adminlte/admin/artikel">
-            <i class="fa fa-book"></i>
-            <span>Artikel</span>
-          </a>
-        </li>
-        <li <?php if($thisPage == "User") echo "class='active'"; ?>>
-          <a href="http://localhost/adminlte/admin/user">
-            <i class="fa fa-user"></i>
-            <span>User</span>
-          </a>
-        </li>
-      </ul>
+    <?php
+    $role    = $_SESSION['user'];
+    $das    = "Dashboard";
+    $menu   = array("Dashboard", "Kategori", "Artikel", "User", "Role");
+
+    if ($role == 1) { //For Admin Access
+      echo "
+             <ul class='sidebar-menu' data-widget='tree'>
+              <li class='header'>MAIN NAVIGATION</li>
+              <li>
+                <a href='http://localhost/adminlte/admin'>
+                  <i class='fa fa-dashboard'></i> <span>Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/kategori'>
+                  <i class='fa fa-pie-chart'></i>
+                  <span>Kategori</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/artikel'>
+                  <i class='fa fa-book'></i>
+                  <span>Artikel</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/user'>
+                  <i class='fa fa-users'></i>
+                  <span>User</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/role'>
+                  <i class='fa fa-gears'></i>
+                  <span>Role</span>
+                </a>
+              </li>
+            </ul>
+           ";
+    } elseif ($role == 2) { //For Admin Access
+      echo "
+             <ul class='sidebar-menu' data-widget='tree'>
+              <li class='header'>MAIN NAVIGATION</li>
+              <li>
+                <a href='http://localhost/adminlte/admin'>
+                  <i class='fa fa-dashboard'></i> <span>Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/kategori'>
+                  <i class='fa fa-pie-chart'></i>
+                  <span>Kategori</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/artikel'>
+                  <i class='fa fa-book'></i>
+                  <span>Artikel</span>
+                </a>
+              </li>
+            </ul>
+           ";
+    } else {
+      echo "
+             <ul class='sidebar-menu' data-widget='tree'>
+              <li class='header'>MAIN NAVIGATION</li>
+              <li>
+                <a href='http://localhost/adminlte/admin'>
+                  <i class='fa fa-dashboard'></i> <span>Dashboard</span>
+                </a>
+              </li>
+              <li>
+                <a href='http://localhost/adminlte/admin/artikel'>
+                  <i class='fa fa-book'></i>
+                  <span>Artikel</span>
+                </a>
+              </li>
+            </ul>
+           ";
+    }
+
+
+               
+    ?>
   </section>

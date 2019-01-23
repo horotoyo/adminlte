@@ -24,3 +24,22 @@
 <script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="http://localhost/adminlte/AdminLTE-2.4.5/dist/js/demo.js"></script>
+<!-- DataTables -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
