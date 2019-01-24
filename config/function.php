@@ -19,9 +19,9 @@ function namaUser($id) {
 
 function jika($status) {
 	if ($status==1) {
-		return "<em style='color:#008bd1'><span class='btn btn-success btn-xs' disabled>Publish</span></em>";
+		return "<span class='label label-success' disabled>Publish</span>";
 	} else {
-		return "<em style='color:#ff0000'><span class='btn btn-danger btn-xs' disabled>Draft</span></em>";}
+		return "<span class='label label-warning' disabled>Draft</span>";}
 }
 
 ?>

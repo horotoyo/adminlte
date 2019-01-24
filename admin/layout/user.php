@@ -1,15 +1,34 @@
+<?php
+$server   = "localhost";
+$user   = "root";
+$pass   = "123";
+$db     = "pondok";
+
+$konek = mysqli_connect($server, $user, $pass, $db);
+if (!$konek) {
+  die('koneksi gagal' . mysqli_error());
+} 
+//else {echo "berhasil";}
+
+$ID     = $_SESSION['id'];
+$sql    = "SELECT * FROM user WHERE id='$ID'";
+$result = mysqli_query($konek, $sql);
+$row    = mysqli_fetch_assoc($result);
+
+?>
+
 <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$_SESSION['photo']?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $_SESSION['name']?></span>
+              <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$row['photo']?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?php echo $row['name']?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$_SESSION['photo']?>" class="img-circle" alt="User Image">
+                <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$row['photo']?>" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $_SESSION['name']?>
+                  <?php echo $row['name']?>
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -31,7 +50,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <?php
+                  $user   = $_SESSION['id'];
+                  echo "<a href='http://localhost/adminlte/admin/profil/index.php?id=".$user."' class='btn btn-default btn-flat'>Profile</a> ";
+                  ?>
                 </div>
                 <div class="pull-right">
                   <a href="http://localhost/adminlte/admin/logout.php" class="btn btn-default btn-flat">Sign out</a>

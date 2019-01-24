@@ -27,8 +27,26 @@
 <!-- DataTables -->
 <script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-  <!-- Google Font -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+<!-- FastClick -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- CK Editor -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/ckeditor/ckeditor.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor1')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+  })
+</script>
+
 
 <script>
   $(function () {

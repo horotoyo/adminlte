@@ -1,11 +1,29 @@
+<?php
+$server   = "localhost";
+$user   = "root";
+$pass   = "123";
+$db     = "pondok";
+
+$konek = mysqli_connect($server, $user, $pass, $db);
+if (!$konek) {
+  die('koneksi gagal' . mysqli_error());
+} 
+//else {echo "berhasil";}
+
+$ID     = $_SESSION['id'];
+$sql    = "SELECT * FROM user WHERE id='$ID'";
+$result = mysqli_query($konek, $sql);
+$row    = mysqli_fetch_assoc($result);
+
+?>
 <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$_SESSION['photo']?>" class="img-circle" alt="User Image">
+          <img src="<?php echo 'http://localhost/adminlte/gambar/user-img/'.$row['photo']?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $_SESSION['name']?></p>
+          <p><?php echo $row['name']?></p>
           <a href="#">
             <?php
             $role    = $_SESSION['user'];

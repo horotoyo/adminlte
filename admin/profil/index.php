@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['email'])) {
   
 ?>
-<?php $thisPage = "Artikel"; ?>
+<?php $thisPage = "User"; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,95 +60,76 @@ if (isset($_SESSION['email'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Artikel
+        User
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Artikel</li>
+        <li class="active">User</li>
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Tambah Artikel</h3>
-        </div>
-        <!-- /.box-header -->
-        <!-- form start -->
-        <form role="form" action="proses_tambah.php" method="POST" enctype="multipart/form-data">
-          <div class="box-body">
-
-            <div class="form-group">
-              <label for="judul">Judul</label>
-              <input type="text" class="form-control" id="judul" placeholder="Masukan Judul Artikel" name="judul">
+            <div class="box-header with-border">
+              <h3 class="box-title">Edit User</h3>
             </div>
-
-            <div class="form-group">
-              <label>Kategori</label>
-              <select name="kategori" id="category" class="form-control" required="">
-                <option value="">-- Pilih Kategori --</option>
-                  <?php
-                    include '../../config/koneksi.php';
-
-                    $metu = $_SESSION['id'];
-                    $sql  = "SELECT * FROM kategori WHERE id_user=$metu";
-                    $result = mysqli_query($konek, $sql);
-                    if (mysqli_num_rows($result) > 0) {
-                      while ($row = mysqli_fetch_assoc($result)) {
-                        echo "<option value=".$row['id'].">".$row['nama']."</option>";
-                      }
-                    }
-                  ?>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="isi">Isi Artikel</label>
-              <div>
-                <textarea class="box-body pad" id="editor1" name="isi" rows="10" cols="80"></textarea>
-              </div>
-            </div>
-
+            <!-- /.box-header -->
             <?php
-              $role   = $_SESSION['user'];
+            include '../../config/koneksi.php';
 
-              if (($role == 1) OR ($role == 3)) {
-                echo "
-                      <div class='form-group'>
-                        <label for='status'>Status</label>
-                        <div class='form-group'>
-                          <label for='active'>
-                            <input type='radio' name='status' value='1' id='active' class='minimal-red' required>
-                            Active</label>
-                          <label for='non-active'>
-                            <input type='radio' name='status' value='0' id='non-active' class='minimal-red' required>
-                            Non-Active</label>
-                        </div>
-                      </div>
-                      ";
-              }
+            $ID       = $_GET['id'];
+            $sql      = "SELECT * FROM user WHERE id=$ID";
+            $result   = mysqli_query($konek, $sql);
+            $row      = mysqli_fetch_assoc($result);
+
             ?>
+           <form class="form-horizontal" action="proses_edit.php" method="POST" enctype="multipart/form-data">
+              <div class="box-body">
+                <div class="form-group">
+                  <input type="hidden" name="id" value="<?php echo $ID; ?>">
+                  <label for="nama" class="col-sm-2 control-label">Nama User</label>
+                  <div class="col-sm-10">
+                  <input type="text" class="form-control" id="nama" value="<?= $row['name'] ?>" name="nama" required>
+                  </div>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="email" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email" value="<?= $row['email'] ?>" name="email" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="password" class="col-sm-2 control-label">Password</label>
+                  <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password" value="<?= $_SESSION['ori'] ?>" name="password">
+                  </div>
+                </div>
+              </div>
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="gambar" class="col-sm-2 control-label">Photo Profile</label>
+                  <div class="col-sm-10">
+                  <img src="<?= 'http://localhost/adminlte/gambar/user-img/'.$row['photo']?>" width="150px"><br><br>
+                  <input type="file" id="gambar" name="gambar"></input>
+                  JPG, JPEG, PNG format
+                  </div>
+                </div>
+              </div>
 
-
-            <div class="form-group">
-              <label for="status">Gambar</label>
-              <input type="file" name="gambar">
-            </div>
-
-            <div class="box-footer">
-                <a type="reset" class="btn btn-default" href="http://localhost/adminlte/admin/artikel">Cancel</a>
-                <button type="submit" class="btn btn-info pull-right">Create</button>
-            </div>
-
-
-        </div>
-        </form>
-
-           
-      </div>
-       <!-- /.box -->
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <a type="reset" class="btn btn-default" href="http://localhost/adminlte/admin/user">Cancel</a>
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
     </section>
     <!-- /.content -->
   </div>
@@ -354,7 +335,6 @@ if (isset($_SESSION['email'])) {
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
-
 
 </div>
 <!-- ./wrapper -->

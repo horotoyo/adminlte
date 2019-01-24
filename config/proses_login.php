@@ -3,6 +3,7 @@ session_start();
 include 'koneksi.php';
 $email		= $_POST['email'];
 $pass		= md5($_POST['password']);
+$ori		= $_POST['password'];
 
 $masuk		= '../config/koneksi.php';
 
@@ -21,6 +22,7 @@ if(!empty($email) && !empty($pass)) {
 		$_SESSION['photo']		= $row2['photo'];
 		$_SESSION['id']			= $row2['id'];
 		$_SESSION['user']		= $row2['role_id'];
+		$_SESSION['ori']		= $ori;
 
 		//checking for type user
 		$user     = $_SESSION['user'];

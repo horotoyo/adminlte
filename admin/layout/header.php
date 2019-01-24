@@ -1,6 +1,6 @@
-<link rel="shortcut icon" type="image/png" href="http://localhost/adminlte/favicon.png"/>
-
- <!-- Tell the browser to be responsive to screen width -->
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="http://localhost/adminlte/favicon.png"/>
+  <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -19,6 +19,10 @@
   <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/jvectormap/jquery-jvectormap.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="http://localhost/adminlte/AdminLTE-2.4.5/plugins/iCheck/all.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -13,7 +13,6 @@ if (isset($_SESSION['email'])) {
  <?php
  include '../layout/header.php';
  ?>
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
